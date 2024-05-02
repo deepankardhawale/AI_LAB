@@ -1,0 +1,24 @@
+import pandas as pd 
+# (for rreading, analyzing, accessing data, exploratory data analysis)
+import matplotlib.pyplot as plt
+import seaborn as sns
+# for data visualization
+data = pd.read_csv('/home/deepankar/python-workspace/water_potability.csv')
+data.head()
+data.isnull().sum()
+data.fillna(data.mean(),inplace=True)  #Filling NUll values with mean
+data.isnull().sum()
+sns.heatmap(data.corr(),annot=True)#annot writes numbers
+fig = plt.gcf()
+fig.set_size_inches(8,6)
+plt.show()
+data.boxplot(figsize = (13,6))
+plt.show()
+X = data.drop('Potability', axis=1) #Input Data
+Y = data['Potability'] #Target Variable
+from sklearn.model_selection import train_test_split
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.2,shuffle=True,random_state = None)
+from sklearn.tree import DecisionTreeClassifier 
+dt = DecisionTreeClassifier()
+dt.fit(X_train, Y_train)
+Y_prediction = dt.predict(X_test) # if the answer given bt dt also matches the ground truth then your model is working fine
