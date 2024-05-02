@@ -1,0 +1,27 @@
+graph = {
+  '5': ['3', '7'],
+  '3': ['2', '4'],
+  '7': ['8'],
+  '2': [],
+  '4': ['8'],
+  '8': []
+}
+
+visited = set()  # Set to keep track of visited nodes of graph.
+
+def dfs_stack(visited, graph, start_node):
+    stack = [start_node]  # Initialize stack with the start node
+
+    while stack:
+        node = stack.pop()  # Pop the top node from the stack
+        if node not in visited:
+            print(node)
+            visited.add(node)
+            # Push unvisited neighbors onto the stack in reverse order
+            for neighbour in reversed(graph[node]):
+                if neighbour not in visited:
+                    stack.append(neighbour)
+
+# Driver Code
+print("Following is the Depth-First Search using a stack")
+dfs_stack(visited, graph, '5')
